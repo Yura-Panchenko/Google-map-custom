@@ -1,0 +1,26 @@
+jQuery(function() {
+	initMap();
+});
+
+function initMap() {
+	jQuery('.map').each(function(){
+		var hold = jQuery(this),
+			mapLatLng = hold.data('latlng'),
+			mapPinUrl = hold.data('icon');
+
+		jQuery.getJSON(hold.data('styles'), function(data) {
+			var map = new google.maps.Map(hold[0], {
+				zoom: 15,
+				center: mapLatLng,
+				optimized: false,
+				styles: data
+			});
+
+			var marker = new google.maps.Marker({
+				position: mapLatLng,
+				map: map,
+				icon: mapPinUrl
+			});
+		});
+	});
+}
